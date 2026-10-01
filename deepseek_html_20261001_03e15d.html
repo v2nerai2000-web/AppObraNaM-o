@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#123b5d">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>OBRA NA MÃO — Orçamento Profissional</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --azul:#123b5d;--azul2:#1769aa;--azul3:#0d4c7d;--amarelo:#f2b134;--amarelo2:#e0a020;
+  --fundo:#f3f6f9;--card:#ffffff;--texto:#172033;--texto2:#55627a;--borda:#dbe3ea;
+  --verde:#16834b;--vermelho:#b42318;--sombra:0 3px 15px #13263b12;--raio:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root{--fundo:#0f1620;--card:#182130;--texto:#e8eef6;--texto2:#9aa8bd;--borda:#2a3646;--sombra:0 3px 15px #0006}
+  input,select,textarea{background:#0f1620!important;color:var(--texto)!important;border-color:var(--borda)!important}
+  .secondary{background:#243043!important;color:var(--texto)!important}
+  .item{background:#131b27!important;border-color:#243043!important}
+  .danger{background:#3a1c1c!important;color:#ff9b8f!important}
+  .status{background:#152a3f!important}
+  .bottom{background:var(--card)!important;border-color:var(--borda)!important}
+}
+html,body{margin:0;padding:0}
+body{background:var(--fundo);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,Helvetica,sans-serif;color:var(--texto);padding-bottom:120px;transition:background .3s}
+header{background:linear-gradient(135deg,#123b5d,#1769aa);color:#fff;padding:calc(14px + env(safe-area-inset-top)) 16px 16px;position:sticky;top:0;z-index:20;box-shadow:0 3px 12px #0002}
+.brand{display:flex;gap:12px;align-items:center;max-width:900px;margin:auto}
+.logo{font-size:34px;filter:drop-shadow(0 2px 4px #0004)}
+.brand h1{font-size:22px;margin:0;letter-spacing:.5px}
+.brand p{font-size:12px;margin:3px 0;opacity:.9}
+.numero{font-size:11px;color:#fff;background:#ffffff22;border-radius:8px;padding:5px 9px;display:inline-block;margin-top:6px;font-weight:600}
+.quickTotal{margin-left:auto;text-align:right;background:#ffffff1a;padding:8px 12px;border-radius:12px;backdrop-filter:blur(8px)}
+.quickTotal small{display:block;font-size:10px;opacity:.85;letter-spacing:.5px}
+.quickTotal b{font-size:18px;font-weight:700}
+main{max-width:900px;margin:auto;padding:14px}
+.card{background:var(--card);border-radius:var(--raio);padding:16px;margin-bottom:14px;box-shadow:var(--sombra);border:1px solid #e9eef3;animation:fadeIn .35s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+h2{font-size:17px;margin:0 0 14px;display:flex;align-items:center;gap:8px}
+h2 .n{background:var(--azul2);color:#fff;width:26px;height:26px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.wide{grid-column:1/-1}
+label{font-size:12px;font-weight:600;display:flex;flex-direction:column;gap:6px;color:var(--texto2)}
+input,select,textarea{width:100%;padding:13px;border:1px solid var(--borda);border-radius:11px;font:inherit;background:var(--card);color:var(--texto);min-height:46px;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px #1769aa22}
+textarea{min-height:82px;resize:vertical}
+button{border:0;border-radius:11px;padding:13px 16px;font-weight:700;font-size:14px;cursor:pointer;min-height:46px;transition:transform .1s,filter .15s;font-family:inherit}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.5;cursor:not-allowed}
+.primary{background:var(--amarelo);color:#172033}
+.primary:hover{filter:brightness(1.05)}
+.blue{background:var(--azul2);color:#fff}
+.blue:hover{background:var(--azul3)}
+.secondary{background:#e8edf2;color:var(--texto)}
+.danger{background:#fee2e2;color:var(--vermelho);font-size:22px;padding:4px;width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;line-height:1}
+.add{background:var(--azul2);color:#fff;width:100%;grid-column:1/-1;font-size:15px;padding:15px}
+.add:hover{background:var(--azul3)}
+.item{display:grid;grid-template-columns:1fr 90px 110px 100px 44px;gap:8px;align-items:end;border:1px solid #e0e7ee;border-radius:12px;padding:12px;margin:9px 0;background:#fbfdff;animation:slideIn .25s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(-8px)}to{opacity:1;transform:translateX(0)}}
+.itemmain{display:flex;flex-direction:column;gap:4px;min-width:0}
+.badge{font-size:10px;color:var(--azul2);font-weight:700;letter-spacing:.5px;text-transform:uppercase}
+.badge+.badge{color:var(--texto2)}
+.unit{font-size:11px;color:#778395}
+.line{font-weight:700;text-align:right;padding-bottom:13px;white-space:nowrap;color:var(--azul);font-size:15px}
+.empty{text-align:center;padding:36px 20px;color:#778395;font-size:14px}
+.empty .icon{font-size:38px;display:block;margin-bottom:8px;opacity:.6}
+.totals{max-width:430px;margin:18px 0 0 auto}
+.totals div{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid #edf1f5;font-size:14px}
+.totals b{font-weight:700}
+.grand{font-size:20px;border-top:2px solid var(--azul);border-bottom:0!important;padding-top:14px!important;margin-top:6px}
+.grand b{color:var(--azul);font-size:22px}
+.actions{display:flex;gap:10px;justify-content:space-between;margin:15px 0;flex-wrap:wrap}
+.actions button{flex:1;min-width:120px}
+.bottom{position:fixed;left:0;right:0;bottom:0;background:var(--card);border-top:1px solid #dce4eb;padding:9px 12px calc(9px + env(safe-area-inset-bottom));display:flex;gap:8px;z-index:30;box-shadow:0 -4px 15px #0001}
+.bottom button{flex:1}
+.small{font-size:11px;color:#6d7887;margin-top:8px;line-height:1.5}
+.status{padding:10px 12px;border-radius:10px;background:#eef7ff;color:#1769aa;font-size:12px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.materialBox{display:grid;grid-template-columns:1fr 110px 110px;gap:8px;align-items:end;margin-top:8px}
+.saveMsg{position:fixed;top:90px;left:50%;transform:translateX(-50%);background:#172033;color:#fff;padding:11px 18px;border-radius:22px;font-size:13px;z-index:50;display:none;box-shadow:0 6px 20px #0004;animation:pop .3s}
+@keyframes pop{from{opacity:0;transform:translate(-50%,-8px)}to{opacity:1;transform:translate(-50%,0)}}
+.toolbar{display:flex;gap:6px;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap}
+.toolbar .chip{background:#eef5fb;color:var(--azul2);border-radius:20px;padding:6px 12px;font-size:12px;font-weight:600}
+.toolbar .chip.warn{background:#fff4e5;color:#a8620a}
+.miniBtn{background:#eef5fb;color:var(--azul2);border-radius:8px;padding:8px 10px;font-size:12px;min-height:36px}
+.itemActions{display:flex;gap:4px}
+.iconBtn{background:#eef5fb;color:var(--azul2);border-radius:8px;width:32px;height:32px;padding:0;font-size:14px;display:inline-flex;align-items:center;justify-content:center;min-height:auto}
+@media(max-width:760px){
+ .grid,.grid3{grid-template-columns:1fr}.wide{grid-column:auto}
+ .item{grid-template-columns:1fr 1fr;gap:10px}
+ .itemmain{grid-column:1/-1}
+ .line{padding:0;text-align:left}
+ .danger{align-self:end;justify-self:end}
+ .materialBox{grid-template-columns:1fr 1fr}
+ .materialBox label:first-child{grid-column:1/-1}
+ header{position:relative}
+ .actions{display:none}
+ .quickTotal{width:100%;margin-left:0;text-align:left;margin-top:8px}
+ .brand{flex-wrap:wrap}
+}
+@media(min-width:761px){.bottom{display:none}}
+@media print{.bottom,.actions,header{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand">
+    <div class="logo">🏗️</div>
+    <div>
+      <h1>OBRA NA MÃO</h1>
+      <p>Orçamento profissional de construção</p>
+      <span class="numero" id="numero">Orçamento nº 0001</span>
+    </div>
+    <div class="quickTotal" id="quickTotal">
+      <small>TOTAL ATUAL</small>
+      <b id="quickTotalVal">R$ 0,00</b>
+    </div>
+  </div>
+</header>
+
+<main>
+<div class="status">💾 <span>Salvamento automático ativo. Seus dados ficam neste aparelho.</span></div>
+
+<section class="card">
+<h2><span class="n">1</span> Cliente e obra</h2>
+<div class="grid">
+<label>Nome do cliente<input id="cliente" placeholder="Ex.: João da Silva" autocomplete="name"></label>
+<label>WhatsApp / telefone<input id="telefone" inputmode="tel" placeholder="(92) 99999-9999" autocomplete="tel"></label>
+<label class="wide">Endereço<input id="endereco" placeholder="Rua, número, bairro" autocomplete="street-address"></label>
+<label>Tipo<select id="tipo"><option>Residencial</option><option>Reforma</option><option>Comercial</option><option>Galpão</option><option>Outro</option></select></label>
+<label>Área (m²)<input id="area" type="number" min="0" step=".01" inputmode="decimal" placeholder="0,00"></label>
+<label class="wide">Observações<textarea id="obs" placeholder="Prazo, condições, detalhes da obra..."></textarea></label>
+</div>
+</section>
+
+<section class="card">
+<h2><span class="n">2</span> Adicionar serviço</h2>
+<div class="grid">
+<label>Categoria<select id="cat"></select></label>
+<label>Pesquisar<input id="busca" placeholder="Digite o serviço..." autocomplete="off"></label>
+<label class="wide">Serviço<select id="servico" size="1"></select></label>
+<button class="add" onclick="add()">＋ ADICIONAR SERVIÇO</button>
+</div>
+</section>
+
+<section class="card">
+<h2><span class="n">3</span> Serviços do orçamento</h2>
+<div class="toolbar" id="toolbar" style="display:none">
+  <span class="chip" id="countChip">0 itens</span>
+  <div style="display:flex;gap:6px">
+    <button class="miniBtn" onclick="expandirTodos()">Ajustar todos</button>
+    <button class="miniBtn" onclick="limparItens()">Limpar</button>
+  </div>
+</div>
+<div id="itens" class="empty"><span class="icon">📋</span>Nenhum serviço adicionado.<br><small>Escolha um serviço acima e toque em ADICIONAR.</small></div>
+</section>
+
+<section class="card">
+<h2><span class="n">4</span> Materiais e ajustes</h2>
+<div class="grid3">
+<label>Materiais (R$)<input id="materiais" type="number" value="0" min="0" step=".01" inputmode="decimal"></label>
+<label>Despesas / frete (R$)<input id="despesas" type="number" value="0" min="0" step=".01" inputmode="decimal"></label>
+<label>Margem (%)<input id="margem" type="number" value="0" min="0" step=".1" inputmode="decimal"></label>
+<label>Desconto (R$)<input id="desconto" type="number" value="0" min="0" step=".01" inputmode="decimal"></label>
+</div>
+<div class="small">💡 Na V1 o valor dos materiais é informado manualmente. Nas próximas versões: cadastro por serviço, quantidade, fornecedor e preço.</div>
+<div class="totals">
+<div>Mão de obra <b id="mo">R$ 0,00</b></div>
+<div>Materiais <b id="mat">R$ 0,00</b></div>
+<div>Despesas <b id="desp">R$ 0,00</b></div>
+<div>Margem/lucro <b id="lucro">R$ 0,00</b></div>
+<div>Desconto <b id="desc">R$ 0,00</b></div>
+<div class="grand">TOTAL <b id="total">R$ 0,00</b></div>
+</div>
+</section>
+
+<section class="card">
+<h2><span class="n">5</span> Backup e histórico</h2>
+<div class="grid3">
+<button class="secondary" onclick="exportar()">⬇️ Exportar backup</button>
+<button class="secondary" onclick="document.getElementById('importFile').click()">⬆️ Importar backup</button>
+<button class="secondary" onclick="compartilhar()">📤 Compartilhar</button>
+</div>
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="importar(event)">
+<div class="small">O backup guarda todos os dados em um arquivo <b>.json</b>. Guarde em local seguro.</div>
+</section>
+
+<div class="actions">
+  <button class="secondary" onclick="novoOrcamento()">🗑️ Novo</button>
+  <button class="primary" onclick="salvar()">💾 Salvar</button>
+  <button class="blue" onclick="pdf()">📄 Gerar PDF</button>
+</div>
+</main>
+
+<div class="bottom">
+<button class="secondary" onclick="novoOrcamento()" aria-label="Novo orçamento">🗑️ Novo</button>
+<button class="blue" onclick="salvar()" aria-label="Salvar">💾 Salvar</button>
+<button class="primary" onclick="pdf()" aria-label="Gerar PDF">📄 PDF</button>
+</div>
+<div class="saveMsg" id="saveMsg">✅ Orçamento salvo neste aparelho.</div>
+
+<script>
+/* ===== BASE DE SERVIÇOS ===== */
+const S=[{"category":"ALVENARIA","name":"Alvenaria de tijolo cerâmico","unit":"m²","price":95},{"category":"ALVENARIA","name":"Alvenaria de bloco de concreto","unit":"m²","price":100},{"category":"ALVENARIA","name":"Elevação de parede baixa / mureta","unit":"m²","price":90},{"category":"ALVENARIA","name":"Vergas e contravergas","unit":"m","price":45},{"category":"ALVENARIA","name":"Encunhamento de alvenaria","unit":"m","price":35},{"category":"REBOCO","name":"Chapisco","unit":"m²","price":18},{"category":"REBOCO","name":"Emboço / reboco interno","unit":"m²","price":42},{"category":"REBOCO","name":"Reboco externo","unit":"m²","price":48},{"category":"REBOCO","name":"Reboco de teto","unit":"m²","price":50},{"category":"PISO","name":"Contrapiso regularizado","unit":"m²","price":48},{"category":"PISO","name":"Regularização de piso","unit":"m²","price":35},{"category":"CERÂMICA","name":"Assentamento de cerâmica piso","unit":"m²","price":45},{"category":"CERÂMICA","name":"Assentamento de cerâmica parede","unit":"m²","price":50},{"category":"PORCELANATO","name":"Assentamento porcelanato até 60x60","unit":"m²","price":65},{"category":"PORCELANATO","name":"Assentamento porcelanato grande formato","unit":"m²","price":90},{"category":"PORCELANATO","name":"Porcelanato em parede","unit":"m²","price":75},{"category":"REVESTIMENTO","name":"Revestimento decorativo","unit":"m²","price":60},{"category":"REVESTIMENTO","name":"Rejuntamento","unit":"m²","price":15},{"category":"ELÉTRICA","name":"Instalação de conduíte embutido","unit":"m","price":12},{"category":"ELÉTRICA","name":"Instalação de caixa 4x2/4x4","unit":"un","price":18},{"category":"ELÉTRICA","name":"Passagem de fio/cabo","unit":"m","price":4},{"category":"ELÉTRICA","name":"Instalação de tomada simples","unit":"un","price":25},{"category":"ELÉTRICA","name":"Instalação de tomada dupla","unit":"un","price":30},{"category":"ELÉTRICA","name":"Instalação de interruptor","unit":"un","price":25},{"category":"ELÉTRICA","name":"Instalação de interruptor paralelo","unit":"un","price":35},{"category":"ELÉTRICA","name":"Instalação de lâmpada","unit":"un","price":25},{"category":"ELÉTRICA","name":"Instalação de luminária","unit":"un","price":40},{"category":"ELÉTRICA","name":"Instalação de plafon LED","unit":"un","price":35},{"category":"ELÉTRICA","name":"Instalação de ventilador de teto","unit":"un","price":100},{"category":"ELÉTRICA","name":"Instalação de quadro de distribuição","unit":"un","price":180},{"category":"ELÉTRICA","name":"Instalação de disjuntor","unit":"un","price":30},{"category":"HIDRÁULICA","name":"Ponto de água fria","unit":"un","price":80},{"category":"HIDRÁULICA","name":"Ponto de esgoto","unit":"un","price":90},{"category":"HIDRÁULICA","name":"Tubo água soldável","unit":"m","price":18},{"category":"HIDRÁULICA","name":"Tubo esgoto","unit":"m","price":22},{"category":"HIDRÁULICA","name":"Instalação de torneira","unit":"un","price":45},{"category":"HIDRÁULICA","name":"Instalação de registro","unit":"un","price":55},{"category":"HIDRÁULICA","name":"Instalação de pia","unit":"un","price":80},{"category":"HIDRÁULICA","name":"Instalação de tanque","unit":"un","price":90},{"category":"HIDRÁULICA","name":"Instalação de vaso sanitário","unit":"un","price":120},{"category":"HIDRÁULICA","name":"Instalação de caixa acoplada","unit":"un","price":100},{"category":"HIDRÁULICA","name":"Instalação de caixa d'água","unit":"un","price":250},{"category":"ESGOTO","name":"Caixa de inspeção","unit":"un","price":180},{"category":"ESGOTO","name":"Fossa séptica — execução","unit":"un","price":1800},{"category":"ESGOTO","name":"Sumidouro — execução","unit":"un","price":1500},{"category":"PINTURA","name":"Massa corrida — aplicação","unit":"m²","price":18},{"category":"PINTURA","name":"Massa PVA — aplicação","unit":"m²","price":16},{"category":"PINTURA","name":"Selador","unit":"m²","price":8},{"category":"PINTURA","name":"Pintura interna 2 demãos","unit":"m²","price":25},{"category":"PINTURA","name":"Pintura externa 2 demãos","unit":"m²","price":32},{"category":"PINTURA","name":"Pintura de teto","unit":"m²","price":28},{"category":"PINTURA","name":"Textura","unit":"m²","price":35},{"category":"PINTURA","name":"Grafiato","unit":"m²","price":45},{"category":"PINTURA","name":"Esmalte em portas","unit":"un","price":130},{"category":"PINTURA","name":"Verniz em madeira","unit":"m²","price":45},{"category":"DEMOLIÇÃO","name":"Demolição de parede","unit":"m²","price":65},{"category":"DEMOLIÇÃO","name":"Retirada de revestimento","unit":"m²","price":30},{"category":"DEMOLIÇÃO","name":"Retirada de piso","unit":"m²","price":30},{"category":"LIMPEZA","name":"Limpeza pós-obra simples","unit":"m²","price":8},{"category":"LIMPEZA","name":"Limpeza pós-obra pesada","unit":"m²","price":14},{"category":"LIMPEZA","name":"Limpeza de vidro","unit":"m²","price":12},{"category":"LIMPEZA","name":"Faxina pós-obra leve","unit":"m²","price":10},{"category":"LIMPEZA","name":"Faxina pós-obra pesada","unit":"m²","price":16},{"category":"LIMPEZA","name":"Limpeza fina para entrega","unit":"m²","price":20},{"category":"LIMPEZA","name":"Limpeza de quintal/área externa","unit":"m²","price":8},{"category":"LIMPEZA","name":"Limpeza de banheiro pós-obra","unit":"un","price":60},{"category":"LIMPEZA","name":"Limpeza de vidros","unit":"m²","price":12},{"category":"FORRO PVC","name":"Instalação de forro PVC","unit":"m²","price":35},{"category":"FORRO PVC","name":"Instalação de forro PVC com estrutura","unit":"m²","price":48},{"category":"FORRO PVC","name":"Instalação de roda-forro PVC","unit":"m","price":12},{"category":"FORRO PVC","name":"Estrutura metálica para forro PVC","unit":"m²","price":25},{"category":"FORRO PVC","name":"Recorte/acabamento para luminária no PVC","unit":"un","price":20},{"category":"DRYWALL","name":"Parede drywall simples","unit":"m²","price":65},{"category":"DRYWALL","name":"Parede drywall dupla","unit":"m²","price":85},{"category":"DRYWALL","name":"Parede drywall acústica","unit":"m²","price":100},{"category":"DRYWALL","name":"Forro drywall","unit":"m²","price":70},{"category":"DRYWALL","name":"Forro drywall com estrutura","unit":"m²","price":85},{"category":"DRYWALL","name":"Sanca de drywall aberta","unit":"m","price":65},{"category":"DRYWALL","name":"Sanca de drywall fechada","unit":"m","price":75},{"category":"DRYWALL","name":"Nicho de drywall","unit":"un","price":180},{"category":"DRYWALL","name":"Reforço interno para TV/armário","unit":"un","price":120},{"category":"DRYWALL","name":"Tratamento de juntas e fita","unit":"m²","price":25},{"category":"DRYWALL","name":"Massa para drywall e acabamento","unit":"m²","price":28},{"category":"DRYWALL","name":"Reparo em drywall","unit":"un","price":80},{"category":"METALÚRGICA","name":"Fabricação de portão metálico","unit":"m²","price":280},{"category":"METALÚRGICA","name":"Instalação de portão metálico","unit":"un","price":350},{"category":"METALÚRGICA","name":"Fabricação de grade metálica","unit":"m²","price":220},{"category":"METALÚRGICA","name":"Instalação de grade","unit":"m²","price":80},{"category":"METALÚRGICA","name":"Fabricação de corrimão metálico","unit":"m","price":130},{"category":"METALÚRGICA","name":"Instalação de corrimão","unit":"m","price":70},{"category":"METALÚRGICA","name":"Fabricação de guarda-corpo metálico","unit":"m","price":260},{"category":"METALÚRGICA","name":"Instalação de guarda-corpo","unit":"m","price":90},{"category":"METALÚRGICA","name":"Fabricação de escada metálica","unit":"m²","price":450},{"category":"METALÚRGICA","name":"Montagem de escada metálica","unit":"un","price":500},{"category":"METALÚRGICA","name":"Solda e montagem de estrutura leve","unit":"kg","price":12},{"category":"METALÚRGICA","name":"Solda em manutenção/reparo","unit":"h","price":70},{"category":"METALÚRGICA","name":"Fabricação de suporte metálico","unit":"un","price":60},{"category":"METALÚRGICA","name":"Fabricação de cobertura metálica","unit":"m²","price":180},{"category":"METALÚRGICA","name":"Montagem de cobertura metálica","unit":"m²","price":90},{"category":"TELHADO","name":"Estrutura de madeira para telhado","unit":"m²","price":75},{"category":"TELHADO","name":"Estrutura metálica para telhado","unit":"m²","price":85},{"category":"TELHADO","name":"Cobertura com telha galvanizada","unit":"m²","price":45},{"category":"TELHADO","name":"Cobertura com telha ondulada galvanizada","unit":"m²","price":42},{"category":"TELHADO","name":"Cobertura com telha galvanizada trapezoidal","unit":"m²","price":48},{"category":"TELHADO","name":"Cobertura com telha metálica termoacústica","unit":"m²","price":70},{"category":"TELHADO","name":"Cobertura com telha fibrocimento ondulada 4mm","unit":"m²","price":42},{"category":"TELHADO","name":"Cobertura com telha fibrocimento ondulada 5mm","unit":"m²","price":45},{"category":"TELHADO","name":"Cobertura com telha fibrocimento ondulada 6mm","unit":"m²","price":48},{"category":"TELHADO","name":"Cobertura com telha cerâmica","unit":"m²","price":55},{"category":"TELHADO","name":"Instalação de cumeeira","unit":"m","price":35},{"category":"TELHADO","name":"Instalação de rufo","unit":"m","price":40},{"category":"TELHADO","name":"Instalação de calha","unit":"m","price":45},{"category":"TELHADO","name":"Impermeabilização de calha","unit":"m","price":35},{"category":"TELHADO","name":"Substituição de telhas","unit":"m²","price":35},{"category":"TELHADO","name":"Manutenção de telhado","unit":"m²","price":30},{"category":"TELHADO","name":"Telhado embutido","unit":"m²","price":95},{"category":"TELHADO","name":"Cobertura de garagem","unit":"m²","price":90},{"category":"ESCADAS","name":"Escada de concreto — execução","unit":"m²","price":420},{"category":"ESCADAS","name":"Escada de alvenaria","unit":"m²","price":350},{"category":"ESCADAS","name":"Escada metálica","unit":"m²","price":450},{"category":"ESCADAS","name":"Assentamento de piso em escada","unit":"degrau","price":55},{"category":"ESCADAS","name":"Revestimento de espelho de escada","unit":"degrau","price":40},{"category":"ESCADAS","name":"Corrimão em escada","unit":"m","price":100},{"category":"ESCADAS","name":"Guarda-corpo em escada","unit":"m","price":140},{"category":"COBERTURAS","name":"Cobertura policarbonato","unit":"m²","price":90},{"category":"COBERTURAS","name":"Cobertura telha translúcida","unit":"m²","price":60},{"category":"COBERTURAS","name":"Cobertura metálica de garagem","unit":"m²","price":100},{"category":"COBERTURAS","name":"Pergolado metálico","unit":"m²","price":180},{"category":"COBERTURAS","name":"Pergolado de madeira","unit":"m²","price":160},{"category":"ESQUADRIAS","name":"Instalação de porta de madeira","unit":"un","price":120},{"category":"ESQUADRIAS","name":"Instalação de porta de alumínio","unit":"un","price":140},{"category":"ESQUADRIAS","name":"Instalação de porta de vidro","unit":"un","price
